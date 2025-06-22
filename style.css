@@ -1,0 +1,328 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #F8F9FA; /* Lighter background */
+    color: #34495E; /* Darker text for better contrast */
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+.app-container {
+    display: grid;
+    grid-template-areas:
+        "header header"
+        "main bin"
+        "main bin";
+    grid-template-columns: 3fr 1fr; /* Adjusted ratio for main and bin */
+    gap: 25px; /* Slightly increased gap */
+    max-width: 1600px;
+    margin: auto;
+}
+.app-container {
+    display: grid;
+    grid-template-areas:
+        "header header"
+        "main bin"
+        "main bin";
+    grid-template-columns: 3fr 1fr;
+    gap: 20px; /* Original gap */
+    max-width: 1600px;
+    margin: auto;
+}
+
+header {
+    grid-area: header;
+    text-align: center; /* Centered header */
+    padding-bottom: 15px; /* More padding */
+    margin-bottom: 15px; /* Space below header */
+    border-bottom: 2px solid #E0E0E0; /* Softer border */
+}
+
+.main-content {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.task-management-area, .prioritization-area, .recycle-bin-area {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px; /* Slightly more rounded corners */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.recycle-bin-area {
+    grid-area: bin;
+}
+
+.topic-creation {
+    display: flex;
+    gap: 10px; /* Consistent gap */
+    margin-bottom: 20px;
+}
+
+#new-topic-input {
+    flex-grow: 1;
+    padding: 10px 12px; /* More padding */
+    border: 1px solid #D0D0D0; /* Softer border */
+    border-radius: 6px; /* Slightly more rounded */
+    font-size: 1em;
+}
+
+button {
+    padding: 10px 15px; /* More padding */
+    border: none;
+    background-color: #4A90E2; /* Primary blue */
+    color: white;
+    border-radius: 6px; /* Slightly more rounded */
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease; /* Smooth transition */
+}
+
+button:hover {
+    background-color: #357ABD; /* Darker blue on hover */
+    transform: translateY(-1px); /* Subtle lift effect */
+}
+
+button:active {
+    transform: translateY(0); /* Reset on click */
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #2C3E50; /* Darker heading color */
+    margin-bottom: 0;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: #2C3E50;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.topic-item, .subtopic-item {
+    background-color: #fdfdfd;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    margin-bottom: 12px; /* More vertical space */
+    border-radius: 6px; /* Consistent rounding */
+    cursor: grab;
+}
+
+.topic-item {
+    background-color: #EBF5FF; /* Lighter blue background for topics */
+    border-color: #D0E0F0; /* Matching border */
+}
+
+.topic-header, .subtopic-item {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Slightly more space */
+}
+
+.topic-text, .subtopic-text {
+    flex-grow: 1;
+    font-size: 1.1em; /* Slightly larger text */
+}
+
+.topic-text[contenteditable="true"], .subtopic-text[contenteditable="true"] {
+    background-color: #fff;
+    outline: 2px solid #4A90E2; /* Primary blue outline */
+    padding: 3px 6px; /* Adjusted padding */
+    border-radius: 4px;
+}
+
+.sl-number {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #D0D0D0;
+    border-radius: 4px; /* Small rounding */
+    padding: 5px 0;
+    font-weight: bold;
+    color: #555;
+}
+
+.sl-number-sub {
+    min-width: 40px;
+    text-align: left;
+    font-weight: bold;
+    color: #555;
+}
+
+.topic-controls, .subtopic-controls {
+    display: flex;
+    gap: 8px; /* More space between controls */
+}
+
+.rewrite-btn, .delete-btn {
+    background-color: transparent;
+    color: #666; /* Softer icon color */
+    padding: 6px; /* More clickable area */
+    font-size: 1.1em; /* Slightly larger icons */
+    border-radius: 50%; /* Make them circular */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.rewrite-btn:hover, .delete-btn:hover {
+    color: #333;
+    background-color: #F0F0F0; /* Lighter hover background */
+}
+
+/* Specific styles for delete button */
+.delete-btn {
+    color: #E74C3C; /* Red for delete */
+}
+.delete-btn:hover {
+    background-color: #FFEBEE; /* Light red background on hover */
+    color: #C0392B; /* Darker red */
+}
+
+.add-subtopic-btn {
+    background-color: #50C878; /* Green for add */
+}
+.add-subtopic-btn:hover {
+    background-color: #43A06F; /* Darker green on hover */
+}
+
+.subtopic-list {
+    margin-left: 30px;
+    margin-top: 10px;
+    padding-left: 15px;
+    border-left: 2px solid #E0E0E0; /* Softer border for subtopic list */
+}
+
+/* Drag and Drop styles */
+.dragging {
+    opacity: 0.5;
+    border: 2px dashed #4A90E2; /* Primary blue dashed border */
+}
+
+.drag-over {
+    background-color: #EBF5FF; /* Light blue for drag over */
+}
+
+/* Prioritization Columns */
+.priority-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px; /* More space between columns */
+}
+
+.priority-column {
+    background-color: #f9f9f9;
+    border: 1px solid #E0E0E0; /* Softer border */
+    border-radius: 8px; /* Consistent rounding */
+    padding: 10px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.03); /* Subtle inner shadow */
+}
+
+.priority-column h3 {
+    text-align: center;
+    font-size: 1em;
+    margin-top: 0;
+    padding-bottom: 12px; /* More padding */
+    border-bottom: 1px solid #D0D0D0; /* Softer border */
+    color: #4A90E2; /* Column headers in primary color */
+}
+
+.task-card-container {
+    min-height: 100px;
+    padding: 8px; /* More padding */
+}
+
+.task-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-left: 6px solid #4A90E2; /* Primary blue left border */
+    padding: 12px; /* More padding */
+    margin-bottom: 10px; /* More vertical space */
+    border-radius: 6px; /* Consistent rounding */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08); /* More prominent shadow */
+    cursor: grab;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+.task-card p {
+    margin: 0 0 5px 0;
+    font-weight: 500;
+    color: #34495E;
+}
+
+.task-card small {
+    color: #777;
+    font-size: 0.85em;
+}
+
+/* Recycle Bin */
+.deleted-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; /* More padding */
+    background-color: #FFF3F3; /* Very light red */
+    border: 1px solid #FFDCDC; /* Softer red border */
+    margin-bottom: 8px; /* More vertical space */
+    border-radius: 6px; /* Consistent rounding */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.deleted-item-text {
+    flex-grow: 1;
+    color: #666;
+    font-size: 0.95em;
+}
+
+.restore-btn {
+    background-color: #50C878; /* Green for restore */
+    padding: 6px 10px; /* Smaller padding for restore button */
+    font-size: 0.9em;
+}
+.restore-btn:hover {
+    background-color: #43A06F;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px 40px; /* More padding */
+    border-radius: 10px; /* Consistent rounding */
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* Stronger shadow */
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: #34495E;
+}
+
+#confirm-delete-btn {
+    background-color: #E74C3C; /* Red for confirm delete */
+}
+#confirm-delete-btn:hover {
+    background-color: #C0392B;
+}
+#cancel-delete-btn {
+    background-color: #95A5A6; /* Softer gray for cancel */
+}
+#cancel-delete-btn:hover {
+    background-color: #7F8C8D;
+}
