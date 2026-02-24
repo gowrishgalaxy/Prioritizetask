@@ -3,64 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prioritize The Task</title>
+    <title>Prioritize Task</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="app-container">
-        <header>
-            <h1>Prioritize The Task</h1>
+        <header class="app-header">
+            <h1>Prioritize Task</h1>
+            <nav>
+                <a id="view-task-btn" href="#" class="nav-btn active">Task View</a>
+                <a id="view-prioritize-btn" href="#" class="nav-btn">Prioritize View</a>
+            </nav>
         </header>
 
-        <main class="main-content">
-            <!-- Left Panel: Topic Management -->
-            <div class="topics-section">
-                <h2>Task List</h2>
-                <div class="add-topic-container">
-                    <input type="text" id="new-topic-input" placeholder="Enter a new topic...">
-                    <button id="add-topic-btn">Add Topic</button>
+        <main id="main-content">
+            <div id="task-view" class="view-section active">
+                <div class="topics-section">
+                    <div class="add-topic-container">
+                        <input type="text" id="new-topic-input" placeholder="Enter new topic">
+                        <button id="add-topic-btn">Add Topic</button>
+                    </div>
+                    <ul id="topic-list"></ul>
                 </div>
-                <ul id="topic-list">
-                    <!-- Topics and Subtopics will be dynamically inserted here -->
-                </ul>
             </div>
 
-            <!-- Right Panel: Recycle Bin -->
-            <div class="recycle-bin-section">
-                <h2>Recycle Bin</h2>
-                <ul id="recycle-bin-list">
-                    <!-- Deleted items will be here -->
-                </ul>
+            <div id="prioritize-view" class="view-section" style="display: none;">
+                <section class="priority-matrix-section">
+                    <div class="priority-toolbar">
+                        <div class="fake-scroll-indicator"></div>
+                        <button id="add-column-btn" class="add-column-btn">Add Field</button>
+                    </div>
+                    <div id="priority-matrix" class="priority-matrix-grid"></div>
+                </section>
             </div>
         </main>
 
-        <!-- Bottom Panel: Prioritization Matrix -->
-        <section class="priority-matrix-section">
-            <h2>Prioritization Matrix</h2>
-            <div id="priority-matrix" class="priority-matrix-grid">
-                <div class="priority-column" id="col1">
-                    <h3>Today & Not Lazy</h3>
-                    <ul class="subtopic-drop-list"></ul>
-                </div>
-                <div class="priority-column" id="col2">
-                    <h3>Today & Lazy</h3>
-                    <ul class="subtopic-drop-list"></ul>
-                </div>
-                <div class="priority-column" id="col3">
-                    <h3>Tomorrow & Not Lazy</h3>
-                    <ul class="subtopic-drop-list"></ul>
-                </div>
-                <div class="priority-column" id="col4">
-                    <h3>Tomorrow & Lazy</h3>
-                    <ul class="subtopic-drop-list"></ul>
-                </div>
-                <div class="priority-column" id="col5">
-                    <h3>Specific Date</h3>
-                    <ul class="subtopic-drop-list"></ul>
-                </div>
+        <footer id="recycle-bin-footer" class="collapsed">
+            <div id="recycle-bin-header">
+                <h2 class="bin-title">Recycle Bin</h2>
+                <span id="bin-count">(0)</span>
+                <button id="recycle-bin-delete-all-btn" type="button" aria-label="Delete recycle bin items">Delete All</button>
+                <button id="recycle-bin-toggle" aria-label="Toggle recycle bin">v</button>
             </div>
-        </section>
+            <ul id="recycle-bin-list"></ul>
+        </footer>
+    </div>
+
+    <div id="bin-delete-modal" class="modal-backdrop hidden" aria-hidden="true">
+        <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="bin-delete-title">
+            <h3 id="bin-delete-title">Delete From Recycle Bin</h3>
+            <p>Select what you want to remove permanently:</p>
+            <div class="modal-actions">
+                <button class="modal-btn danger" data-delete-scope="all">Delete All</button>
+                <button class="modal-btn danger" data-delete-scope="topic">Only Topics</button>
+                <button class="modal-btn danger" data-delete-scope="subtopic">Only Subtopics</button>
+                <button class="modal-btn danger" data-delete-scope="column">Only Fields</button>
+                <button class="modal-btn secondary" id="bin-delete-cancel-btn">Cancel</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
