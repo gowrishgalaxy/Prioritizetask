@@ -28,6 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const binDeleteCancelBtn = document.getElementById("bin-delete-cancel-btn");
     const priorityMatrix = document.getElementById("priority-matrix");
     const addColumnBtn = document.getElementById("add-column-btn");
+    const exportDataBtn = document.getElementById("export-data-btn");
+    const importDataBtn = document.getElementById("import-data-btn");
+    const importDataInput = document.getElementById("import-data-input");
     let dragState = null;
 
     function saveState() {
@@ -48,6 +51,49 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch {
             state = structuredClone(defaultState);
         }
+    }
+
+    function buildExportData() {
+        return {
+            app: "prioritize-task",
+            version: 1,
+            exportedAt: new Date().toISOString(),
+            state
+        };
+    }
+
+    function exportData() {
+        const payload = buildExportData();
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+        const link = document.createElement("a");
+        const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\..+$/, "").replace("T", "-");
+        link.href = URL.createObjectURL(blob);
+        link.download = `prioritize-task-${stamp}.json`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+
+    function isImportStateValid(parsed) {
+        return parsed && typeof parsed === "object";
+    }
+
+    function importDataFromText(rawText) {
+        const parsed = JSON.parse(rawText);
+        const incomingState = parsed?.state && typeof parsed.state === "object" ? parsed.state : parsed;
+        if (!isImportStateValid(incomingState)) {
+            throw new Error("Invalid import file format.");
+        }
+
+        state = {
+            ...structuredClone(defaultState),
+            ...incomingState,
+            columns: incomingState.columns && Object.keys(incomingState.columns).length
+                ? incomingState.columns
+                : structuredClone(defaultState.columns)
+        };
+
+        normalizeState();
+        render();
     }
 
     function generateId() {
@@ -893,6 +939,24 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!event.target.classList.contains("restore-btn")) return;
         const item = event.target.closest(".deleted-item");
         if (item) restoreItem(item.dataset.id);
+    });
+
+    exportDataBtn.addEventListener("click", exportData);
+    importDataBtn.addEventListener("click", () => {
+        importDataInput.click();
+    });
+    importDataInput.addEventListener("change", async (event) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+        try {
+            const text = await file.text();
+            importDataFromText(text);
+            alert("Data imported successfully.");
+        } catch {
+            alert("Import failed. Please select a valid JSON export file.");
+        } finally {
+            event.target.value = "";
+        }
     });
 
     addColumnBtn.addEventListener("click", addColumn);

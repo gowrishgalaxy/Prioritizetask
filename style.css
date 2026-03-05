@@ -46,6 +46,21 @@ body {
     gap: 44px;
 }
 
+.data-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.data-actions button {
+    border: 0;
+    background: #2f3a58;
+    color: #fff;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.92rem;
+    cursor: pointer;
+}
+
 .nav-btn {
     text-decoration: none;
     color: var(--ink);
@@ -510,6 +525,14 @@ body {
 
     .app-header nav {
         gap: 20px;
+    }
+
+    .data-actions {
+        width: 100%;
+    }
+
+    .data-actions button {
+        flex: 1;
     }
 
     .subtopic-item,
